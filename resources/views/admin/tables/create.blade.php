@@ -39,6 +39,7 @@
                             <label for="status" class="block text-sm font-medium text-gray-700">Status</label>
                             <div class="mt-1">
                                 <select id="status" name="status" class="block w-full appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal transition duration-150 ease-in-out sm:text-sm sm:leading-5 @error('status') border-red-400 @enderror">
+                                    <option value="" selected> Choose status</option>
                                     @foreach(App\Enums\TableStatus::cases() as $status)
                                         <option value="{{ $status->value }}"> {{ $status->name }}</option>
                                     @endforeach
@@ -52,6 +53,7 @@
                             <label for="location" class="block text-sm font-medium text-gray-700">Location</label>
                             <div class="mt-1">
                                 <select id="location" name="location" class="block w-full appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal transition duration-150 ease-in-out sm:text-sm sm:leading-5 @error('location') border-red-400 @enderror">
+                                    <option value="" selected> Choose location</option>
                                     @foreach(App\Enums\TableLocation::cases() as $location)
                                         <option value="{{ $location->value }}"> {{ $location->name }}</option>
                                     @endforeach

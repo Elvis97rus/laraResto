@@ -18,9 +18,6 @@
                         @method('PUT')
                         <div class="sm:col-span-6">
                             <label for="name" class="block text-sm font-medium text-gray-700"> Name </label>
-                            <div>
-                                <img src="{{ Storage::url($menu->image) }}" class="w-32 h-32" alt="">
-                            </div>
                             <div class="mt-1">
                                 <input type="text" id="name" name="name" value="{{ $menu->name }}"
                                        class="block w-full appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal transition duration-150 ease-in-out sm:text-sm sm:leading-5 @error('name') border-red-400 @enderror" />
@@ -31,6 +28,9 @@
                         </div>
                         <div class="sm:col-span-6">
                             <label for="image" class="block text-sm font-medium text-gray-700"> Image </label>
+                            <div>
+                                <img src="{{ Storage::url($menu->image) }}" class="w-32 h-32" alt="">
+                            </div>
                             <div class="mt-1">
                                 <input type="file" id="image" name="image"
                                        class="block w-full appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal transition duration-150 ease-in-out sm:text-sm sm:leading-5 @error('image') border-red-400 @enderror" />

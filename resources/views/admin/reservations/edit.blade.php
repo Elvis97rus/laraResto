@@ -13,12 +13,12 @@
             </div>
             <div class="m-2 p-2 bg-slate-100 rounded">
                 <div class="space-y-8 divide-y divide-gray-200 w-1/2 mt-10">
-                    <form method="POST" action="{{ route('admin.reservations.store') }}">
+                    <form method="POST" action="{{ route('admin.reservations.update', $reservation->id) }}">
                         @csrf
                         <div class="sm:col-span-6">
                             <label for="first_name" class="block text-sm font-medium text-gray-700"> First Name </label>
                             <div class="mt-1">
-                                <input type="text" id="first_name" name="first_name"
+                                <input type="text" id="first_name" name="first_name" value="{{$reservation->first_name}}"
                                        class="block w-full appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal transition duration-150 ease-in-out sm:text-sm sm:leading-5 @error('first_name') border-red-400 @enderror" />
                             </div>
                             @error('first_name')
@@ -28,7 +28,7 @@
                         <div class="sm:col-span-6">
                             <label for="last_name" class="block text-sm font-medium text-gray-700"> Last Name </label>
                             <div class="mt-1">
-                                <input type="text" id="last_name" name="last_name"
+                                <input type="text" id="last_name" name="last_name" value="{{$reservation->last_name}}"
                                        class="block w-full appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal transition duration-150 ease-in-out sm:text-sm sm:leading-5 @error('last_name') border-red-400 @enderror" />
                             </div>
                             @error('last_name')
@@ -38,7 +38,7 @@
                         <div class="sm:col-span-6">
                             <label for="email" class="block text-sm font-medium text-gray-700"> E-mail </label>
                             <div class="mt-1">
-                                <input type="email" id="email" name="email"
+                                <input type="email" id="email" name="email" value="{{$reservation->email}}"
                                        class="block w-full appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal transition duration-150 ease-in-out sm:text-sm sm:leading-5 @error('email') border-red-400 @enderror" />
                             </div>
                             @error('email')
@@ -48,7 +48,7 @@
                         <div class="sm:col-span-6">
                             <label for="tel_number" class="block text-sm font-medium text-gray-700"> Telephone </label>
                             <div class="mt-1">
-                                <input type="text" id="tel_number" name="tel_number" placeholder="79998887766"
+                                <input type="text" id="tel_number" name="tel_number" placeholder="79998887766"  value="{{$reservation->tel_number}}"
                                        class="block w-full appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal transition duration-150 ease-in-out sm:text-sm sm:leading-5 @error('tel_number') border-red-400 @enderror" />
                             </div>
                             @error('tel_number')
@@ -58,7 +58,7 @@
                         <div class="sm:col-span-6">
                             <label for="res_date" class="block text-sm font-medium text-gray-700"> Reservation Date </label>
                             <div class="mt-1">
-                                <input type="datetime-local" id="res_date" name="res_date"
+                                <input type="datetime-local" id="res_date" name="res_date" value="{{$reservation->res_date}}"
                                        class="block w-full appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal transition duration-150 ease-in-out sm:text-sm sm:leading-5 @error('res_date') border-red-400 @enderror" />
                             </div>
                             @error('res_date')
@@ -68,7 +68,7 @@
                         <div class="sm:col-span-6">
                             <label for="guest_number" class="block text-sm font-medium text-gray-700"> Guest Number </label>
                             <div class="mt-1">
-                                <input type="number" id="guest_number" name="guest_number"
+                                <input type="number" id="guest_number" name="guest_number" value="{{$reservation->guest_number}}"
                                        class="block w-full appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal transition duration-150 ease-in-out sm:text-sm sm:leading-5 @error('guest_number') border-red-400 @enderror" />
                             </div>
                             @error('guest_number')
@@ -80,7 +80,7 @@
                             <div class="mt-1">
                                 <select id="table_id" name="table_id" class="block w-full appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal transition duration-150 ease-in-out sm:text-sm sm:leading-5 @error('table_id') border-red-400 @enderror">
                                     @foreach($tables as $table)
-                                        <option value="{{ $table->id }}"> {{ $table->name }}</option>
+                                        <option value="{{ $table->id }}" @selected($reservation->table_id == $table->id)> {{ $table->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
