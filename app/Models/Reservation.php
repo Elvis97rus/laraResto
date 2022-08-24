@@ -18,4 +18,13 @@ class Reservation extends Model
         'email',
         'tel_number',
     ];
+
+    protected $dates = [
+        'status'
+    ];
+
+    public function table()
+    {
+        return $this->belongsTo(Table::class);
+    }
 }
