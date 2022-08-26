@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Enums\TableStatus;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ReservationStoreRequest;
 use App\Models\Reservation;
 use App\Models\Table;
-use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class ReservationController extends Controller
 {
@@ -28,7 +29,7 @@ class ReservationController extends Controller
      */
     public function create()
     {
-        $tables = Table::all();
+        $tables = Table::where('status', TableStatus::Available)->get();
 
         return view('admin.reservations.create', compact('tables'));
     }
@@ -41,9 +42,20 @@ class ReservationController extends Controller
      */
     public function store(ReservationStoreRequest $request)
     {
+        $table = Table::findOrFail($request->table_id);
+        if ($request->guest_number > $table->guest_number) {
+            return back()->with('warning', 'Please check guests number and table capacity...');
+        }
+
+        $request_date = Carbon::parse($request->res_date);
+        foreach ($table->reservations as $res) {
+            if (Carbon::parse($res->res_date)->format('Y-m-d') == $request_date->format('Y-m-d')) {
+                return back()->with('warning', 'This table is reserved for this date.');
+            }
+        }
         Reservation::create($request->validated());
 
-        return to_route('admin.reservations.index');
+        return to_route('admin.reservations.index')->with('success', 'Reservation created successfully!');
     }
 
     /**
@@ -80,7 +92,7 @@ class ReservationController extends Controller
     {
         $reservation->update($request->validated());
 
-        return to_route('admin.reservations.index');
+        return to_route('admin.reservations.index')->with('success', 'Reservation updated successfully!');
     }
 
     /**
@@ -93,6 +105,6 @@ class ReservationController extends Controller
     {
         $reservation->delete();
 
-        return to_route('admin.reservations.index');
+        return to_route('admin.reservations.index')->with('danger', 'Reservation deleted successfully!');
     }
 }
